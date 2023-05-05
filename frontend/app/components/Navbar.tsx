@@ -1,24 +1,22 @@
-"use client";
 import Logo from "./Logo";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link } from "@remix-run/react";
+import { useLocation } from "@remix-run/react";
 
-interface NavLink {
+interface NavLinkData {
   id: number;
   url: string;
   newTab: boolean;
   text: string;
 }
 
-function NavLink({ url, text }: NavLink) {
-  const path = usePathname();
-
+function NavLink({ url, text }: NavLinkData) {
+  const { pathname } = useLocation();
   return (
     <li className="flex">
       <Link
-        href={url}
+        to={url}
         className={`flex items-center mx-4 -mb-1 border-b-2 dark:border-transparent ${
-          path === url && "dark:text-violet-400 dark:border-violet-400"
+          pathname === url && "dark:text-violet-400 dark:border-violet-400"
         }}`}
       >
         {text}
@@ -32,7 +30,7 @@ export default function Navbar({
   logoUrl,
   logoText,
 }: {
-  links: Array<NavLink>;
+  links: Array<NavLinkData>;
   logoUrl: string | null;
   logoText: string | null;
 }) {
@@ -45,7 +43,7 @@ export default function Navbar({
 
         <div className="items-center flex-shrink-0 hidden lg:flex">
           <ul className="items-stretch hidden space-x-3 lg:flex">
-            {links.map((item: NavLink) => (
+            {links.map((item: NavLinkData) => (
               <NavLink key={item.id} {...item} />
             ))}
           </ul>

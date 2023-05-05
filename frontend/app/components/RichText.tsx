@@ -1,17 +1,24 @@
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import * as React from "react";
+import { renderers, parse, transform } from "@markdoc/markdoc";
 
-interface RichTextProps {
+// TODO: FIGURE OUT TYPES FOR MARKDOC
+
+export function markdown(markdown: any, config: any) {
+  return transform(parse(markdown, config));
+}
+
+export default function Markdown({
+  data,
+  config = {},
+}: {
   data: {
     body: string;
   };
-}
-
-export default function RichText({ data }: RichTextProps) {
-  // TODO: STYLE THE MARKDOWN
+  config?: any;
+}) {
   return (
-    <section className="rich-text py-6 dark:bg-gray-900 dark:text-gray-50 ">
-      <Markdown children={data.body} remarkPlugins={[remarkGfm]} />
-    </section>
+    <div className="rich-text py-6 bg-gray-900 text-gray-50 ">
+      {renderers.react(markdown(data.body, config), React)}
+    </div>
   );
 }

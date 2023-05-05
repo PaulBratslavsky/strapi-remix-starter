@@ -1,3 +1,131 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/******************************************* 
+  Rich Text Styles
+*******************************************/ 
+
+/* Headers */
+.rich-text article  h1 {
+  @apply text-4xl font-bold mb-4 text-violet-400;
+}
+
+.rich-text article  h2 {
+  @apply text-3xl font-bold mb-4 text-violet-400;
+}
+
+.rich-text article  h3 {
+  @apply text-2xl font-bold mb-4 text-violet-400;
+}
+
+.rich-text article  h4 {
+  @apply text-xl font-bold mb-4 text-violet-400;
+}
+
+.rich-text article  h5 {
+  @apply text-lg font-bold mb-4 text-violet-400;
+}
+
+.rich-text article  h6 {
+  @apply text-base font-bold mb-4 text-violet-200;
+}
+
+/* Horizontal rules */
+.rich-text article  hr {
+  @apply border-gray-300 my-8;
+}
+
+.rich-text article  a {
+  @apply text-violet-400 underline;
+}
+
+/* Typographic replacements */
+.rich-text article  p {
+  @apply mb-4;
+}
+
+/* Emphasis */
+.rich-text article  strong {
+  @apply font-bold;
+}
+
+.rich-text article  em {
+  @apply italic;
+}
+
+.rich-text article  del {
+  @apply line-through;
+}
+
+/* Blockquotes */
+.rich-text article  blockquote {
+  @apply border-l-4 border-gray-400 pl-4 py-2 mb-4;
+}
+
+/* Lists */
+.rich-text article  ul {
+  @apply list-disc pl-4 mb-4;
+}
+
+.rich-text article  ol {
+  @apply list-decimal pl-4 mb-4;
+}
+
+.rich-text article  li {
+  @apply mb-2;
+}
+
+.rich-text article  li > ul {
+  @apply list-disc pl-4 mb-2;
+}
+
+.rich-text article  li > ol {
+  @apply list-decimal pl-4 mb-2;
+}
+
+/* Code blocks */
+.rich-text article  pre {
+  @apply font-mono bg-gray-900 text-gray-100 rounded p-4  my-6;
+}
+
+.rich-text article  code {
+  @apply font-mono bg-gray-900 text-gray-100 rounded px-2 py-1;
+}
+
+/* Tables */
+.rich-text article  table {
+  @apply w-full border-collapse border-gray-300 my-6;
+}
+
+.rich-text article  th {
+  @apply bg-gray-900 text-left py-2 px-4 font-semibold border-b border-gray-300;
+}
+
+.rich-text article  td {
+  @apply py-2 px-4 border-b border-gray-300;
+}
+
+/* Images */
+.rich-text article  img {
+  @apply w-full object-cover rounded-xl my-6;
+}
+
+/* Custom containers */
+.rich-text article  .warning {
+  @apply bg-yellow-100 border-yellow-500 text-yellow-700 px-4 py-2 rounded-lg mb-4;
+}
+
+
+/******************************************* 
+  React Slideshow Styles
+*******************************************/   
+
+.react-slideshow-container [aria-label="Previous Slide"] {
+  margin-left: 1rem;
+}
+
+.react-slideshow-container [aria-label="Next Slide"] {
+  margin-right: 1rem;
+}

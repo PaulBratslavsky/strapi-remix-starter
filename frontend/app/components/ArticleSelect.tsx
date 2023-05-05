@@ -1,5 +1,4 @@
-import React from "react";
-import Link from "next/link";
+import { Link }from "@remix-run/react";
 
 interface Category {
   id: number;
@@ -41,15 +40,17 @@ export default function ArticleSelect({
 
   return (
     <div className="p-4 rounded-lg dark:bg-gray-900 min-h-[365px] relative">
-      <h4 className="text-xl font-semibold">Browse By Category</h4>
+      <h4 className="text-xl font-semibold text-white">Browse By Category</h4>
 
       <div>
-        <div className="flex flex-wrap py-6 space-x-2 dark:border-gray-400">
+        <div className="flex flex-wrap py-6 space-x-2 border-gray-400">
           {categories.map((category: Category) => {
             if (category.attributes.articles.data.length === 0) return null;
             return (
               <Link
-                href={`/blog/${category.attributes.slug}`}
+                key={category.id}
+                to={`/blog/${category.attributes.slug}`}
+                prefetch="intent"
                 className={selectedFilter(
                   category.attributes.slug,
                   params.category
@@ -59,20 +60,21 @@ export default function ArticleSelect({
               </Link>
             );
           })}
-          <Link href={"/blog"} className={selectedFilter("", "filter")}>
+          <Link to={"/blog"} className={selectedFilter("", "filter")} prefetch="intent">
             #all
           </Link>
         </div>
 
         <div className="space-y-2">
-          <h4 className="text-lg font-semibold">Other Posts You May Like</h4>
+          <h4 className="text-lg font-semibold text-white">Other Posts You May Like</h4>
           <ul className="ml-4 space-y-1 list-disc">
             {articles.map((article: Article) => {
               return (
-                <li>
+                <li key={article.id} className="text-gray-100">
                   <Link
                     rel="noopener noreferrer"
-                    href={`/blog/${params.category}/${article.attributes.slug}`}
+                    to={`/blog/${params.category}/${article.attributes.slug}`}
+                    prefetch="intent"
                     className={`${
                       params.slug === article.attributes.slug &&
                       "text-violet-400"

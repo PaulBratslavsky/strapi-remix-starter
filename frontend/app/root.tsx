@@ -1,5 +1,7 @@
 import type { LinksFunction } from "@remix-run/node";
-
+import { useLoaderData as useLoaderDataGlobal } from "@remix-run/react";
+import { getStrapiMedia } from "./utils/api-helpers";
+import { fetchStrapiData } from "~/api/fetch-strapi-data.server";
 import {
   Links,
   LiveReload,
@@ -11,11 +13,39 @@ import {
   useRouteError,
 } from "@remix-run/react";
 
+import Navbar from "~/components/Navbar";
+import Footer from "~/components/Footer";
+import Banner from "~/components/Banner";
+
 import stylesheet from "~/tailwind.css";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
+
+export async function loader() {
+  const token = process.env.REMIX_PUBLIC_STRAPI_API_TOKEN;
+  const path = `/global`;
+
+  const urlParamsObject = {
+    populate: [
+      "metadata.shareImage",
+      "favicon",
+      "notificationBanner.link",
+      "navbar.links",
+      "navbar.navbarLogo.logoImg",
+      "footer.footerLogo.logoImg",
+      "footer.menuLinks",
+      "footer.legalLinks",
+      "footer.socialLinks",
+      "footer.categories",
+    ],
+  };
+
+  const options = { headers: { Authorization: `Bearer ${token}` } };
+  const response = await fetchStrapiData(path, urlParamsObject, options);
+  return response;
+}
 
 export function ErrorBoundary() {
   const error = useRouteError();
@@ -44,6 +74,15 @@ export function ErrorBoundary() {
 }
 
 export default function App() {
+  const global = useLoaderDataGlobal();
+  const { notificationBanner, navbar, footer } = global.data.attributes;
+  const navbarLogoUrl = getStrapiMedia(
+    navbar.navbarLogo.logoImg.data.attributes.url
+  );
+  const footerLogoUrl = getStrapiMedia(
+    footer.footerLogo.logoImg.data.attributes.url
+  );
+
   return (
     <html lang="en">
       <head>
@@ -52,9 +91,24 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      
+
       <body className="bg-gray-900 min-h-screen">
+        <Navbar
+          links={navbar.links}
+          logoUrl={navbarLogoUrl}
+          logoText={navbar.navbarLogo.logoText}
+        />
         <Outlet />
+        <Footer
+          logoUrl={footerLogoUrl}
+          logoText={footer.footerLogo.logoText}
+          menuLinks={footer.menuLinks}
+          categoryLinks={footer.categories.data}
+          legalLinks={footer.legalLinks}
+          socialLinks={footer.socialLinks}
+        />
+        <Banner data={notificationBanner} />
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

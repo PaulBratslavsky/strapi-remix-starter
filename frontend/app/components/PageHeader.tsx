@@ -8,8 +8,8 @@ interface PageHeaderProps {
 export default function PageHeader({ heading, text } : PageHeaderProps) {
   return (
     <div className="my-16 w-full text-center">
-    { text && <span className="text-violet-400 font-bold">{text}</span> }
-    <h2 className="text-4xl my-4 lg:text-5xl font-bold font-heading">{heading}</h2>
+    { text && <span className="text-violet-400 font-bold ">{text}</span> }
+    <h2 className="text-4xl my-4 lg:text-5xl text-white font-bold font-heading uppercase">{heading}</h2>
   </div>
   );
 }

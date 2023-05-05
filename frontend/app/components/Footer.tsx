@@ -1,12 +1,11 @@
-"use client";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@remix-run/react";
 import Logo from "./Logo";
+import { useLocation } from "@remix-run/react";
 import { CgWebsite } from "react-icons/cg";
 import { FaDiscord } from "react-icons/fa";
 import { AiFillTwitterCircle, AiFillYoutube } from "react-icons/ai";
 
-interface FooterLink {
+interface FooterLinkData {
   id: number;
   url: string;
   newTab: boolean;
@@ -14,7 +13,7 @@ interface FooterLink {
   social?: string;
 }
 
-interface CategoryLink {
+interface CategoryLinkData {
   id: string;
   attributes: {
     name: string;
@@ -22,14 +21,15 @@ interface CategoryLink {
   };
 }
 
-function FooterLink({ url, text }: FooterLink) {
-  const path = usePathname();
+function FooterLink({ url, text }: FooterLinkData) {
+  const { pathname } = useLocation();
   return (
     <li className="flex">
       <Link
-        href={url}
+        to={url}
+        prefetch="intent"
         className={`hover:dark:text-violet-400 ${
-          path === url && "dark:text-violet-400 dark:border-violet-400"
+          pathname === url && "dark:text-violet-400 dark:border-violet-400"
         }}`}
       >
         {text}
@@ -38,11 +38,12 @@ function FooterLink({ url, text }: FooterLink) {
   );
 }
 
-function CategoryLink({ attributes }: CategoryLink) {
+function CategoryLink({ attributes }: CategoryLinkData) {
   return (
     <li className="flex">
       <Link
-        href={`/blog/${attributes.slug}`}
+        to={`/blog/${attributes.slug}`}
+        prefetch="intent"
         className="hover:dark:text-violet-400"
       >
         {attributes.name}
@@ -76,12 +77,11 @@ export default function Footer({
 }: {
   logoUrl: string | null;
   logoText: string | null;
-  menuLinks: Array<FooterLink>;
-  categoryLinks: Array<CategoryLink>;
-  legalLinks: Array<FooterLink>;
-  socialLinks: Array<FooterLink>;
+  menuLinks: Array<FooterLinkData>;
+  categoryLinks: Array<CategoryLinkData>;
+  legalLinks: Array<FooterLinkData>;
+  socialLinks: Array<FooterLinkData>;
 }) {
-
   return (
     <footer className="py-6 dark:bg-gray-900 dark:text-gray-50">
       <div className="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
@@ -95,7 +95,7 @@ export default function Footer({
           <div className="col-span-6 text-center md:text-left md:col-span-3">
             <p className="pb-1 text-lg font-medium">Categories</p>
             <ul>
-              {categoryLinks.map((link: CategoryLink) => (
+              {categoryLinks.map((link: CategoryLinkData) => (
                 <CategoryLink key={link.id} {...link} />
               ))}
             </ul>
@@ -104,7 +104,7 @@ export default function Footer({
           <div className="col-span-6 text-center md:text-left md:col-span-3">
             <p className="pb-1 text-lg font-medium">Menu</p>
             <ul>
-              {menuLinks.map((link: FooterLink) => (
+              {menuLinks.map((link: FooterLinkData) => (
                 <FooterLink key={link.id} {...link} />
               ))}
             </ul>
@@ -116,9 +116,9 @@ export default function Footer({
               ©{new Date().getFullYear()} All rights reserved
             </span>
             <ul className="flex">
-              {legalLinks.map((link: FooterLink) => (
+              {legalLinks.map((link: FooterLinkData) => (
                 <Link
-                  href={link.url}
+                  to={link.url}
                   className="text-gray-400 hover:text-gray-300 mr-2"
                   key={link.id}
                 >
@@ -128,7 +128,7 @@ export default function Footer({
             </ul>
           </div>
           <div className="flex justify-center pt-4 space-x-4 lg:pt-0 lg:col-end-13">
-            {socialLinks.map((link: FooterLink) => {
+            {socialLinks.map((link: FooterLinkData) => {
               return (
                 <a
                   key={link.id}

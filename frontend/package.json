@@ -8,20 +8,25 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@markdoc/markdoc": "^0.2.2",
     "@netlify/functions": "^1.4.0",
     "@remix-run/netlify": "^1.16.0",
     "@remix-run/node": "^1.16.0",
     "@remix-run/react": "^1.16.0",
+    "classnames": "^2.3.2",
     "cross-env": "^7.0.3",
     "isbot": "^3.6.8",
     "qs": "^6.11.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
+    "react-slideshow-image": "^4.2.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.16.0",
     "@remix-run/eslint-config": "^1.16.0",
     "@remix-run/serve": "^1.16.0",
+    "@types/qs": "^6.9.7",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "eslint": "^8.38.0",
