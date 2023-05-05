@@ -6,9 +6,6 @@ export async function submitJoinForm(formData: {
   const URL =  process.env.STRAPI_API_URL + "/api/lead-form-submissions";
   const SUBMIT_FORM_STRAP_KEY = process.env.SUBMIT_FORM_STRAPI_KEY;
 
-  console.log(URL, "URL");
-  console.log(SUBMIT_FORM_STRAP_KEY, "SUBMIT_FORM_STRAP_KEY");
-
   try {
     const data = await fetch(URL, {
       method: "POST",

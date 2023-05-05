@@ -1,4 +1,4 @@
-import { getStrapiURL } from "../utils/api-helpers";
+import { getStrapiURL, getStrapiMedia } from "../utils/api-helpers";
 
 interface TestimonialResponse {
   text: string;
@@ -25,7 +25,9 @@ interface TestimonialsProps {
 }
 
 function Testimonial({ text, authorName, picture }: TestimonialResponse) {
-  const imageUrl = getStrapiURL(picture.data.attributes.url);
+
+
+  const imageUrl = getStrapiMedia(picture.data.attributes.url);
   return (
     <div className="flex flex-col items-center mx-12 lg:mx-0">
       <div className="flex items-center">

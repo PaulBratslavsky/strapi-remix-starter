@@ -1,4 +1,5 @@
 import type { LinksFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { useLoaderData as useLoaderDataGlobal } from "@remix-run/react";
 import { getStrapiMedia } from "./utils/api-helpers";
 import { fetchStrapiData } from "~/api/fetch-strapi-data.server";
@@ -18,6 +19,7 @@ import Footer from "~/components/Footer";
 import Banner from "~/components/Banner";
 
 import stylesheet from "~/tailwind.css";
+import { getEnv } from "./env.server";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -42,9 +44,17 @@ export async function loader() {
     ],
   };
 
+  //TODO: Figure out how to type this
+  interface GlobalResponse {
+    ENV: any;
+  }
+
   const options = { headers: { Authorization: `Bearer ${token}` } };
   const response = await fetchStrapiData(path, urlParamsObject, options);
-  return response;
+  return json<GlobalResponse>({
+    ...response,
+    ENV: getEnv(),
+  })
 }
 
 export function ErrorBoundary() {
@@ -74,8 +84,8 @@ export function ErrorBoundary() {
 }
 
 export default function App() {
-  const global = useLoaderDataGlobal();
-  const { notificationBanner, navbar, footer } = global.data.attributes;
+  const data = useLoaderDataGlobal();
+  const { notificationBanner, navbar, footer } = data.data.attributes;
   const navbarLogoUrl = getStrapiMedia(
     navbar.navbarLogo.logoImg.data.attributes.url
   );
@@ -108,6 +118,11 @@ export default function App() {
           socialLinks={footer.socialLinks}
         />
         <Banner data={notificationBanner} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
+          }}
+        />
 
         <ScrollRestoration />
         <Scripts />

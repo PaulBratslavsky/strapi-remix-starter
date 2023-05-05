@@ -5,7 +5,6 @@ import BlogList from "~/components/BlogList";
 import PageHeader from "~/components/PageHeader";
 
 export async function loader({ params }: { params: { category: string } }) {
-  console.log(params);
   const token = process.env.REMIX_PUBLIC_STRAPI_API_TOKEN;
   const path = `/articles`;
   const urlParamsObject = {
