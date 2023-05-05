@@ -16,6 +16,8 @@ export async function fetchStrapiData(path: string, urlParamsObject = {}, option
     `/api${path}${queryString ? `?${queryString}` : ""}`
   )}`;
 
+  console.log(requestUrl);
+
   // Trigger API call
   const response = await fetch(requestUrl, mergedOptions);
 
