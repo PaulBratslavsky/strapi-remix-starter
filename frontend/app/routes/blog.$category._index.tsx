@@ -26,7 +26,7 @@ export async function loader({ params }: { params: { category: string } }) {
   };
   const options = { headers: { Authorization: `Bearer ${token}` } };
   const response = await fetchStrapiData(path, urlParamsObject, options);
-  return json({...response, category: params.category});
+  return json({ ...response, category: params.category });
 }
 
 export default function CategoryPostsRoute() {

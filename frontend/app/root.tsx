@@ -54,7 +54,7 @@ export async function loader() {
   return json<GlobalResponse>({
     ...response,
     ENV: getEnv(),
-  })
+  });
 }
 
 export function ErrorBoundary() {

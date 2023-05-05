@@ -13,7 +13,7 @@ import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { getEnv } from "./env.server";
 
-global.ENV = getEnv()
+global.ENV = getEnv();
 
 const ABORT_DELAY = 5_000;
 
