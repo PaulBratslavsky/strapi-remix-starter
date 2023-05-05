@@ -1,4 +1,4 @@
-import { getStrapiURL, getStrapiMedia } from "../utils/api-helpers";
+import { getStrapiMedia } from "../utils/api-helpers";
 
 interface TestimonialResponse {
   text: string;
