@@ -1,9 +1,9 @@
 import { Link } from "@remix-run/react";
 import Logo from "./Logo";
 import { useLocation } from "@remix-run/react";
-import { CgWebsite } from "react-icons/cg";
-import { FaDiscord } from "react-icons/fa";
-import { AiFillTwitterCircle, AiFillYoutube } from "react-icons/ai";
+import { CgWebsite } from "react-icons/cg/index.js";
+import { FaDiscord } from "react-icons/fa/index.js";
+import { AiFillTwitterCircle, AiFillYoutube } from "react-icons/ai/index.js";
 
 interface FooterLinkData {
   id: number;

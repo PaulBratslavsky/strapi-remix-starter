@@ -1,9 +1,9 @@
-import type { V2_MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { fetchStrapiData } from "~/api/fetch-strapi-data.server";
 import { sectionRenderer } from "~/utils/section-renderer";
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [{ title: "New Remix App" }];
 };
 

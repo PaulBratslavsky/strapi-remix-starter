@@ -1,6 +1,5 @@
 import type { LinksFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData as useLoaderDataGlobal } from "@remix-run/react";
 import { getStrapiMedia } from "./utils/api-helpers";
 import { fetchStrapiData } from "~/api/fetch-strapi-data.server";
 import {
@@ -12,6 +11,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useRouteError,
+  useLoaderData as useLoaderDataGlobal
 } from "@remix-run/react";
 
 import Navbar from "~/components/Navbar";

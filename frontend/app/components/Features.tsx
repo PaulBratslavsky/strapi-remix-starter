@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react"
+import { Link } from "@remix-run/react";
 
 interface FeaturesProps {
   data: {
@@ -6,6 +6,16 @@ interface FeaturesProps {
     description: string;
     feature: FeatureResponse[];
   };
+}
+
+interface FeatureProps {
+  id: string;
+  title: string;
+  description: string;
+  showLink: boolean;
+  newTab: boolean;
+  url: string;
+  text: string;
 }
 
 interface FeatureResponse {
@@ -18,7 +28,14 @@ interface FeatureResponse {
   text: string;
 }
 
-function Feature({ title, description, showLink, newTab, url, text }: FeatureResponse) {
+function Feature({
+  title,
+  description,
+  showLink,
+  newTab,
+  url,
+  text,
+}: FeatureResponse) {
   return (
     <div className="flex flex-col items-center p-4">
       <svg
@@ -60,7 +77,7 @@ export default function Features({ data }: FeaturesProps) {
         <p className="dark:text-gray-400">{data.description}</p>
       </div>
       <div className="container mx-auto my-6 grid justify-center gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {data.feature.map((feature: Feature, index: number) => (
+        {data.feature.map((feature: FeatureProps, index: number) => (
           <Feature key={index} {...feature} />
         ))}
       </div>

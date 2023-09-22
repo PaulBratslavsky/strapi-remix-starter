@@ -1,6 +1,11 @@
+// TODO: HOW TO GET STRAPI URL FROM ENV
 export function getStrapiURL(path = '') {
-  return `${global.ENV.STRAPI_API_URL || 'http://localhost:1337'}${path}`;
+  return `http://localhost:1337${path}`;
 }
+
+// export function getStrapiURL(path = '') {
+//   return `${global.ENV.STRAPI_API_URL || 'http://localhost:1337'}${path}`;
+// }
 
 export function getStrapiMedia(url: string | null) {
   if (url == null) {
