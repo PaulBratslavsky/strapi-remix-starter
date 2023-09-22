@@ -37,8 +37,6 @@ interface EmailProps {
   };
 }
 
-
-
 export default function Email({ data, children }: { data: EmailProps, children?: React.ReactNode }) {
 
   return (

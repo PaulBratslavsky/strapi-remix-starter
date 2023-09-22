@@ -1,5 +1,6 @@
 import * as React from "react";
-import { renderers, parse, transform } from "@markdoc/markdoc";
+import pkg from '@markdoc/markdoc';
+const { renderers, parse, transform } = pkg;
 
 // TODO: FIGURE OUT TYPES FOR MARKDOC
 
