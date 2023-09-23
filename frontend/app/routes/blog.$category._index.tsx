@@ -30,7 +30,7 @@ export async function loader({ params }: { params: { category: string } }) {
 }
 
 export default function CategoryPostsRoute() {
-  const data = useLoaderData();
+  const data = useLoaderData<typeof loader>();
   return (
     <div>
       <PageHeader heading={data.category} text="Checkout Something Cool" />

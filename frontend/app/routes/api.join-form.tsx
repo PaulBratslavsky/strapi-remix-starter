@@ -1,6 +1,7 @@
 import { json } from "@remix-run/node";
 import { useFetcher } from "@remix-run/react";
 import { submitJoinForm } from "~/api/form.server";
+import type { FC } from "react";
 
 export async function action({ request }: { request: Request }) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -24,13 +25,12 @@ export async function action({ request }: { request: Request }) {
   return json({ data: data });
 }
 
-export function FormSubmit({
-  placeholder,
-  text,
-}: {
+// TODO: TYPE STRAPI FORM RESPONSE AND PASS TO USE FETCHER
+// NOTE: PASS TYPES VIA GENERICS WHEN USING REACT COMPONENTS
+const FormSubmit: FC<{
   placeholder: string;
   text: string;
-}) {
+}> = ({ placeholder, text }) => {
   const fetcher = useFetcher();
 
   if (fetcher.data && !fetcher.data.error) {
@@ -71,4 +71,7 @@ export function FormSubmit({
       </div>
     </div>
   );
-}
+};
+
+
+export default FormSubmit;

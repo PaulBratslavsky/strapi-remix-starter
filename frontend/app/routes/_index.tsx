@@ -18,7 +18,7 @@ export async function loader() {
 }
 
 export default function RootRoute() {
-  const page = useLoaderData();
+  const page = useLoaderData<typeof loader>();
   if (page.data.length === 0) return <div className="container mx-auto p-8 text-white">Please publish your first page from Strapi Admin</div>;
   const contentSections = page.data[0].attributes.contentSections;
   return contentSections.map((section: any, index: number) =>
