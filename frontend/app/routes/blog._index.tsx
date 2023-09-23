@@ -22,7 +22,7 @@ export async function loader() {
 }
 
 export default function BlogRoute() {
-  const data = useLoaderData();
+  const data = useLoaderData<typeof loader>();
   return (
     <div>
       <PageHeader heading="Our Blog" text="Checkout Something Cool" />

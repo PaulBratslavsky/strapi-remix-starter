@@ -22,7 +22,7 @@ export async function loader({ params }: { params: { slug: string } }) {
 }
 
 export default function PostRoute() {
-  const data = useLoaderData();
+  const data = useLoaderData<typeof loader>();
   if (data.data?.length === 0) return <h2>no post found</h2>;
   return <Post data={data.data[0]} />;
 }

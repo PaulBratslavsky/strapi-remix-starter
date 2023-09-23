@@ -1,4 +1,4 @@
-import { FormSubmit } from "~/routes/api.join-form";
+import FormSubmit from "~/routes/api.join-form";
 
 import {
   isRouteErrorResponse,
@@ -37,7 +37,7 @@ interface EmailProps {
   };
 }
 
-export default function Email({ data, children }: { data: EmailProps, children?: React.ReactNode }) {
+export default function Email({ data }: { data: EmailProps }) {
 
   return (
     <section className="py-6 dark:bg-gray-900 dark:text-gray-50">
@@ -46,10 +46,8 @@ export default function Email({ data, children }: { data: EmailProps, children?:
           <h1 className="text-5xl font-bold leading-none">{data.title}</h1>
           <p className="text-lg">{data.description}</p>
         </div>
-        <FormSubmit placeholder={data.emailPlaceholder} text={data.submitButton.text}>
-          {children}
-        </FormSubmit>
-      </div>
+        <FormSubmit placeholder={data.emailPlaceholder} text={data.submitButton.text} />
+        </div>
     </section>
   );
 }
