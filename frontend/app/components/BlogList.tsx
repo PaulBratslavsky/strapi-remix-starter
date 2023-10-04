@@ -7,6 +7,7 @@ interface Article {
     title: string;
     description: string;
     slug: string;
+    premium: boolean;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
@@ -72,11 +73,18 @@ export default function BlogList({
               className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-900 lg:w-[300px] xl:min-w-[375px] rounded-2xl overflow-hidden shadow-lg"
             >
               {imageUrl && (
-                <img
-                  alt="presentation"
-                  className="object-cover w-full h-44 "
-                  src={imageUrl}
-                />
+                <div className="relative">
+                  <img
+                    alt="presentation"
+                    className="object-cover w-full h-44 "
+                    src={imageUrl}
+                  />
+                  {article.attributes.premium && (
+                    <div className="absolute top-0 right-0 bg-red-600 text-white px-2 py-1 font-bold uppercase">
+                      Premium
+                    </div>
+                  )}
+                </div>
               )}
               <div className="p-6 space-y-2 relative">
                 {avatarUrl && (

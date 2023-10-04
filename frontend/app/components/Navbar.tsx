@@ -1,6 +1,8 @@
 import Logo from "./Logo";
-import { Link } from "@remix-run/react";
-import { useLocation } from "@remix-run/react";
+import type { StrapiUserResponse } from "~/types";
+import { Link, useLocation } from "@remix-run/react";
+import { Avatar } from "~/components/Avatar";
+import { Logout } from "~/routes/logout";
 
 interface NavLinkData {
   id: number;
@@ -29,10 +31,12 @@ export default function Navbar({
   links,
   logoUrl,
   logoText,
+  user,
 }: {
   links: Array<NavLinkData>;
   logoUrl: string | null;
   logoText: string | null;
+  user: StrapiUserResponse | null;
 }) {
   return (
     <div className="p-4 dark:bg-gray-900 dark:text-gray-100">
@@ -46,6 +50,14 @@ export default function Navbar({
             {links.map((item: NavLinkData) => (
               <NavLink key={item.id} {...item} />
             ))}
+            {user ? (
+              <div className="flex items-center gap-2">
+                <Avatar user={user} />
+                <Logout />
+              </div>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
           </ul>
         </div>
 

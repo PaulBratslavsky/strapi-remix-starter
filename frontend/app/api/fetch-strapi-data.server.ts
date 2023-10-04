@@ -1,29 +1,30 @@
 import qs from "qs";
 import { getStrapiURL } from "~/utils/api-helpers";
 
-export async function fetchStrapiData(path: string, urlParamsObject = {}, options = {}) {
-  // Merge default and user options
-  const mergedOptions = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    ...options,
+export async function fetchStrapiData(
+  path: string,
+  urlParamsObject: Record<string, any> = {},
+  jwt?: string | null
+) {
+  
+  const headers: { [key: string]: string } = {
+    "Content-Type": "application/json"
   };
 
-  // Build request URL
+  // Add Authorization header only if jwt is provided.
+  if (jwt) headers["Authorization"] = `Bearer ${jwt}`;
+
   const queryString = qs.stringify(urlParamsObject);
-  const requestUrl = `${getStrapiURL(
-    `/api${path}${queryString ? `?${queryString}` : ""}`
-  )}`;
+  const requestUrl = `${getStrapiURL(`/api${path}`)}${queryString ? `?${queryString}` : ""}`;
 
-  // Trigger API call
-  const response = await fetch(requestUrl, mergedOptions);
+  const response = await fetch(requestUrl, { headers: headers });
 
-  // Handle response
   if (!response.ok) {
-    console.error(response.statusText);
-    throw new Error(`An error occurred please try again`);
+    const errorMessage = await response.text();
+    console.error(errorMessage || response.statusText);
+    throw new Error(errorMessage || "An error occurred. Please try again.");
   }
+
   const data = await response.json();
   return data;
 }

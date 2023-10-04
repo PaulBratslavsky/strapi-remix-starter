@@ -1,7 +1,9 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
+import stylesheet from "~/tailwind.css";
 import { json } from "@remix-run/node";
 import { getStrapiMedia } from "./utils/api-helpers";
 import { fetchStrapiData } from "~/api/fetch-strapi-data.server";
+import { getUserData } from "~/utils/session.server";
 import {
   Links,
   LiveReload,
@@ -11,22 +13,18 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useRouteError,
-  useLoaderData as useLoaderDataGlobal
+  useLoaderData,
 } from "@remix-run/react";
+
 
 import Navbar from "~/components/Navbar";
 import Footer from "~/components/Footer";
 import Banner from "~/components/Banner";
-
-import stylesheet from "~/tailwind.css";
-import { getEnv } from "./env.server";
-
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
-export async function loader() {
-  const token = process.env.REMIX_PUBLIC_STRAPI_API_TOKEN;
+export async function loader({ request }: LoaderFunctionArgs) {
   const path = `/global`;
 
   const urlParamsObject = {
@@ -44,16 +42,15 @@ export async function loader() {
     ],
   };
 
-  //TODO: Figure out how to type this
-  interface GlobalResponse {
-    ENV: any;
-  }
-
-  const options = { headers: { Authorization: `Bearer ${token}` } };
+  let options = {};
+  const user = await getUserData(request);
+  if (user?.jwt) options = { Authorization: `Bearer ${user.jwt}` };
+  
   const response = await fetchStrapiData(path, urlParamsObject, options);
-  return json<GlobalResponse>({
+  
+  return json({
     ...response,
-    ENV: getEnv(),
+    user: user || null,
   });
 }
 
@@ -84,7 +81,7 @@ export function ErrorBoundary() {
 }
 
 export default function App() {
-  const data = useLoaderDataGlobal();
+  const data = useLoaderData<typeof loader>();
   const { notificationBanner, navbar, footer } = data.data.attributes;
   const navbarLogoUrl = getStrapiMedia(
     navbar.navbarLogo.logoImg.data.attributes.url
@@ -107,6 +104,7 @@ export default function App() {
           links={navbar.links}
           logoUrl={navbarLogoUrl}
           logoText={navbar.navbarLogo.logoText}
+          user={data.user}
         />
         <Outlet />
         <Footer

@@ -8,12 +8,10 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader() {
-  const token = process.env.REMIX_PUBLIC_STRAPI_API_TOKEN;
   const path = `/pages`;
   const slug = "home";
   const urlParamsObject = { filters: { slug } };
-  const options = { headers: { Authorization: `Bearer ${token}` } };
-  const response = await fetchStrapiData(path, urlParamsObject, options);
+  const response = await fetchStrapiData(path, urlParamsObject);
   return response;
 }
 

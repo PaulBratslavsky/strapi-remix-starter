@@ -5,14 +5,10 @@ import ArticleSelect from "~/components/ArticleSelect";
 
 export async function loader({ params }: { params: { category: string } }) {
   const filter = params.category;
-  const token = process.env.REMIX_PUBLIC_STRAPI_API_TOKEN;
-  const options = { headers: { Authorization: `Bearer ${token}` } };
 
-  const categoriesResponse = await fetchStrapiData(
-    "/categories",
-    { populate: "*" },
-    options
-  );
+  const categoriesResponse = await fetchStrapiData("/categories", {
+    populate: "*",
+  });
 
   const articlesResponse = await fetchStrapiData(
     "/articles",
@@ -25,7 +21,6 @@ export async function loader({ params }: { params: { category: string } }) {
           },
         }
       : {},
-    options
   );
 
   return json({
@@ -45,7 +40,11 @@ export default function SlugRoute() {
           <Outlet />
         </div>
         <aside>
-          <ArticleSelect categories={categories} articles={articles} params={params} />
+          <ArticleSelect
+            categories={categories}
+            articles={articles}
+            params={params}
+          />
         </aside>
       </div>
     </section>

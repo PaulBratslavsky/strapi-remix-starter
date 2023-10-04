@@ -1,11 +1,12 @@
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
+import { getUserData } from "~/utils/session.server";
 import { fetchStrapiData } from "~/api/fetch-strapi-data.server";
 import { useLoaderData } from "@remix-run/react";
 import Post from "~/components/Post";
 
-export async function loader({ params }: { params: { slug: string } }) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   const slug = params.slug;
-  const token = process.env.REMIX_PUBLIC_STRAPI_API_TOKEN;
   const path = `/articles`;
   const urlParamsObject = {
     filters: { slug },
@@ -16,8 +17,9 @@ export async function loader({ params }: { params: { slug: string } }) {
       blocks: { populate: "*" },
     },
   };
-  const options = { headers: { Authorization: `Bearer ${token}` } };
-  const response = await fetchStrapiData(path, urlParamsObject, options);
+
+  const user = await getUserData(request);
+  const response = await fetchStrapiData(path, urlParamsObject, user ? user.jwt : null);
   return json({ ...response });
 }
 

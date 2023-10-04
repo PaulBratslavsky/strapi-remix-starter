@@ -60,6 +60,10 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.seo"
+    },
+    "premium": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
