@@ -3,7 +3,8 @@ import stylesheet from "~/tailwind.css";
 import { json } from "@remix-run/node";
 import { getStrapiMedia } from "./utils/api-helpers";
 import { fetchStrapiData } from "~/api/fetch-strapi-data.server";
-import { getUserData } from "~/utils/session.server";
+import { userme } from "./api/auth/userme.server";
+
 import {
   Links,
   LiveReload,
@@ -15,7 +16,6 @@ import {
   useRouteError,
   useLoaderData,
 } from "@remix-run/react";
-
 
 import Navbar from "~/components/Navbar";
 import Footer from "~/components/Footer";
@@ -42,12 +42,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
     ],
   };
 
-  let options = {};
-  const user = await getUserData(request);
-  if (user?.jwt) options = { Authorization: `Bearer ${user.jwt}` };
-  
-  const response = await fetchStrapiData(path, urlParamsObject, options);
-  
+  const response = await fetchStrapiData(path, urlParamsObject);
+
+  const user = await userme(request);
+
   return json({
     ...response,
     user: user || null,
@@ -89,6 +87,8 @@ export default function App() {
   const footerLogoUrl = getStrapiMedia(
     footer.footerLogo.logoImg.data.attributes.url
   );
+
+  console.log(data.user)
 
   return (
     <html lang="en">
