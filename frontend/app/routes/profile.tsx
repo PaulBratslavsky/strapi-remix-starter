@@ -2,6 +2,8 @@ import { type LoaderFunctionArgs, redirect, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { userme } from "~/api/auth/userme.server";
 import PageHeader from "~/components/PageHeader";
+import UserProfileForm from "~/components/UserProfileForm";
+import UserProfileImageForm from "~/components/UserProfileImageForm";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const user = await userme(request);
@@ -10,13 +12,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function ProfileRoute() {
-  const user = useLoaderData<typeof loader>();
-  console.log(user);
+  const loaderData = useLoaderData<typeof loader>();
+
+  console.log(loaderData);
 
   return (
     <div>
       <PageHeader heading="Profile" text="User Details" />
-      
+      <UserProfileForm data={loaderData as any} />
     </div>
   );
 }

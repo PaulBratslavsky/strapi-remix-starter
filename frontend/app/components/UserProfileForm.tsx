@@ -1,60 +1,158 @@
-import { Form, Link } from "@remix-run/react";
+import { useState } from "react";
+import { Form } from "@remix-run/react";
 import { SubmitButton } from "~/components/SubmitButton";
+import { ImageField } from "~/components/ImageField";
+import { getStrapiMedia } from "~/utils/api-helpers";
 
-export const UserProfileFrom: React.FC<{
-  data: { message: string };
-}> = ({ data }) => {
+export interface UserDataProps {
+  user: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    username: string;
+    email: string;
+    bio: string;
+    image: Image;
+  };
+}
+
+export interface Image {
+  id: number;
+  url: string;
+  alternativeText: null;
+}
+
+const message = null;
+
+export default function UserProfileForm({ data }: { data: UserDataProps }) {
+  console.log(data);
+
+  const fullImageUrl = data.user?.image
+    ? getStrapiMedia(data.user?.image?.url)
+    : "https://picsum.photos/200";
+
+  const [file, setFile] = useState<File>();
+  const [previewImage, setPreviewImage] = useState<string | null>(
+    fullImageUrl || null
+  );
+
   return (
     <div className="my-6 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
-
-        <Form method="post">
-          <div className="mb-4">
+      <div className="bg-white p-8 rounded-lg shadow-md w-3/4">
+        <h2 className="text-2xl font-bold mb-4">User Profile</h2>
+        <Form method="post" className="grid grid-cols-2 gap-4">
+          {/* First row */}
+          <div className="mb-4 col-span-1">
             <label
               className="block text-sm font-medium text-gray-700"
-              htmlFor="identifier"
+              htmlFor="username"
             >
-              Email or Username
+              Username
             </label>
             <input
               type="text"
-              id="identifier"
-              name="identifier"
+              id="username"
+              name="username"
               className="mt-1 p-2 w-full border rounded-md text-gray-950"
-              autoComplete="username"
+              defaultValue={data.user.username}
+              disabled
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 col-span-1">
             <label
               className="block text-sm font-medium text-gray-700"
-              htmlFor="password"
+              htmlFor="email"
             >
-              Password
+              Email
             </label>
             <input
-              type="password"
-              id="password"
-              name="password"
+              type="email"
+              id="email"
+              name="email"
               className="mt-1 p-2 w-full border rounded-md text-gray-950"
-              autoComplete="current-password"
+              defaultValue={data.user.email}
+              disabled
             />
           </div>
-          <SubmitButton text="Login" />
-          <Link
-            to="/register"
-            className="my-2 block text-gray-600 hover:underline"
-          >
-            Don't have account.
-          </Link>
+
+          {/* Second row */}
+          <div className="mb-4 col-span-1">
+            <label
+              className="block text-sm font-medium text-gray-700"
+              htmlFor="firstName"
+            >
+              First Name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              className="mt-1 p-2 w-full border rounded-md text-gray-950"
+              defaultValue={data.user.firstName}
+            />
+          </div>
+
+          <div className="mb-4 col-span-1">
+            <label
+              className="block text-sm font-medium text-gray-700"
+              htmlFor="lastName"
+            >
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              className="mt-1 p-2 w-full border rounded-md text-gray-950"
+              defaultValue={data.user.lastName}
+            />
+          </div>
+
+          {/* Third row */}
+          <div className="mb-4 col-span-2">
+            <label
+              className="block text-sm font-medium text-gray-700"
+              htmlFor="bio"
+            >
+              Bio
+            </label>
+            <textarea
+              id="bio"
+              name="bio"
+              rows={3}
+              className="mt-1 p-2 w-full border rounded-md text-gray-950"
+              defaultValue={data.user.bio}
+            ></textarea>
+          </div>
+
+          <div>
+            <div className="my-6 flex items-center justify-center">
+              <ImageField
+                onFileChange={(selected) => setFile(selected)}
+                previewImage={previewImage}
+                onPreviewImageChange={setPreviewImage}
+              />
+              <input
+                type="text"
+                name="imageId"
+                hidden
+                defaultValue={data.user.image?.id || undefined}
+              />
+            </div>
+          </div>
+
+          <div className="col-span-2">
+            <SubmitButton text="Update Profile" />
+          </div>
+
           {data && (
-            <div>
+            <div className="col-span-2">
               <p aria-live="polite" className="sr-only" role="status">
-                {data.message}
+                {message}
               </p>
               <p className="flex justify-center items-center text-purple-700 p-2">
-                {data.message}
+                {message}
               </p>
             </div>
           )}
@@ -62,4 +160,4 @@ export const UserProfileFrom: React.FC<{
       </div>
     </div>
   );
-};
+}
