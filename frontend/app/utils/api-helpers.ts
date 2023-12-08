@@ -1,4 +1,4 @@
-import type { Headers } from "~/types";
+import type Headers  from "~/types";
 
 export function getStrapiURL(path = "") {
   return `http://localhost:1337${path}`;

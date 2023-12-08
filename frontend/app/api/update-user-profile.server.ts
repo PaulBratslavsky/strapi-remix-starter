@@ -1,6 +1,6 @@
 export async function updateProfile(
   data: any,
-  image: any,
+  imageId: string,
   userId: string,
   jwt: string
 ) {
@@ -8,12 +8,15 @@ export async function updateProfile(
   const query = `/api/users/${userId}`;
 
   const url = baseUrl + query;
-
-  const hasImage = image._name === "" ? false : true;
-
   const formData = new FormData();
-  formData.append("data", JSON.stringify(data));
-  if (hasImage) formData.append("files.image", image, image.name);
+
+  for (const key in data) {
+    if (Object.hasOwn(data, key)) {
+      formData.append(key, data[key]);
+    }
+  }
+
+  if (imageId) formData.append("image", imageId);
 
   const response = await fetch(url, {
     method: "PUT",
@@ -23,5 +26,7 @@ export async function updateProfile(
     body: formData,
   });
 
-  return response.json();
+  const dataResponse = await response.json();
+  console.log(dataResponse);
+  return dataResponse;
 }

@@ -1,5 +1,5 @@
 interface ImageFieldProps {
-  readonly name?: string;
+  readonly name: string;
   readonly onFileChange: (file: File | undefined) => void;
   readonly previewImage: string | null;
   readonly onPreviewImageChange: (image: string | null) => void;

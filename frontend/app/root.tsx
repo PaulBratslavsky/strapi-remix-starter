@@ -88,8 +88,6 @@ export default function App() {
     footer.footerLogo.logoImg.data.attributes.url
   );
 
-  console.log(data.user)
-
   return (
     <html lang="en">
       <head>

@@ -40,7 +40,11 @@ export default function UserProfileForm({ data }: { data: UserDataProps }) {
     <div className="my-6 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-3/4">
         <h2 className="text-2xl font-bold mb-4">User Profile</h2>
-        <Form method="post" className="grid grid-cols-2 gap-4">
+        <Form
+          method="POST"
+          encType="multipart/form-data"
+          className="grid grid-cols-2 gap-4"
+        >
           {/* First row */}
           <div className="mb-4 col-span-1">
             <label
@@ -129,6 +133,7 @@ export default function UserProfileForm({ data }: { data: UserDataProps }) {
           <div>
             <div className="my-6 flex items-center justify-center">
               <ImageField
+                name="image"
                 onFileChange={(selected) => setFile(selected)}
                 previewImage={previewImage}
                 onPreviewImageChange={setPreviewImage}

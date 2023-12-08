@@ -3,7 +3,6 @@ import { getStrapiMedia } from "~/utils/api-helpers";
 import { Link } from "@remix-run/react";
 
 export const Avatar: React.FC<{ user: StrapiUserResponse }> = ({ user }) => {
-  console.log(user);
   const imageUrl =
     getStrapiMedia(user.image?.url) ||
     "https://robohash.org/mail@ashallendesign.co.uk";
