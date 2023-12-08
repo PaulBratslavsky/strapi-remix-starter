@@ -48,6 +48,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     ...response,
+    ENV: global.ENV,
     user: user || null,
   });
 }

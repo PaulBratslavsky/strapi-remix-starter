@@ -1,7 +1,9 @@
-import type Headers  from "~/types";
+interface Headers {
+  [key: string]: string;
+}
 
 export function getStrapiURL(path = "") {
-  return `http://localhost:1337${path}`;
+  return ENV.STRAPI_API_URL + path;
 }
 
 export function createHeaders(jwt: string | null): Headers {
