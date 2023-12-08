@@ -1,14 +1,25 @@
-import { type LoaderFunctionArgs, redirect, json } from "@remix-run/node";
+import {
+  type LoaderFunctionArgs,
+  redirect,
+  json,
+  unstable_parseMultipartFormData,
+  unstable_createMemoryUploadHandler,
+  ActionFunctionArgs,
+} from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { userme } from "~/api/auth/userme.server";
 import PageHeader from "~/components/PageHeader";
 import UserProfileForm from "~/components/UserProfileForm";
-import UserProfileImageForm from "~/components/UserProfileImageForm";
+import { updateProfile } from "~/api/update-user-profile.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const user = await userme(request);
   if (!user) return redirect("/login");
   return json({ user });
+}
+
+export async function action({ request }: ActionFunctionArgs ) {
+  return json({ message: "Profile updated successfully" });
 }
 
 export default function ProfileRoute() {
