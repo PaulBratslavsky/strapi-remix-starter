@@ -6,10 +6,13 @@ export interface StrapiErrorResponse {
   };
 }
 
-
 export interface StrapiUserResponse {
-  user: {
-    id: number;
-    username: string;
-  }
+  id: number;
+  username: string;
+  bio: string;
+  image: {
+    id: string;
+    url: string;
+    alternativeText: string;
+  };
 }

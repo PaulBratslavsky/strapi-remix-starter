@@ -38,6 +38,7 @@ export default function Navbar({
   logoText: string | null;
   user: StrapiUserResponse | null;
 }) {
+
   return (
     <div className="p-4 dark:bg-gray-900 dark:text-gray-100">
       <div className="container flex justify-between h-16 mx-auto px-0 sm:px-6">
