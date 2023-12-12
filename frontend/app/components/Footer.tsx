@@ -28,8 +28,8 @@ function FooterLink({ url, text }: FooterLinkData) {
       <Link
         to={url}
         prefetch="intent"
-        className={`hover:dark:text-violet-400 ${
-          pathname === url && "dark:text-violet-400 dark:border-violet-400"
+        className={`hover:text-violet-400 ${
+          pathname === url && "text-violet-400 border-violet-400"
         }}`}
       >
         {text}
@@ -44,7 +44,7 @@ function CategoryLink({ attributes }: CategoryLinkData) {
       <Link
         to={`/blog/${attributes.slug}`}
         prefetch="intent"
-        className="hover:dark:text-violet-400"
+        className="hover:text-violet-400"
       >
         {attributes.name}
       </Link>
@@ -83,7 +83,7 @@ export default function Footer({
   socialLinks: Array<FooterLinkData>;
 }) {
   return (
-    <footer className="py-6 dark:bg-gray-900 dark:text-gray-50">
+    <footer className="py-6 bg-gray-900 text-gray-50">
       <div className="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
         <div className="grid grid-cols-12">
           <div className="pb-6 col-span-full md:pb-0 md:col-span-6">
@@ -136,7 +136,7 @@ export default function Footer({
                   href={link.url}
                   title={link.text}
                   target={link.newTab ? "_blank" : "_self"}
-                  className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-violet-400 dark:text-gray-900"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-violet-400 text-gray-900"
                 >
                   <RenderSocialIcon social={link.social} />
                 </a>

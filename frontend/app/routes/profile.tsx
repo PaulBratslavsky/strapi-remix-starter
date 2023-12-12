@@ -6,13 +6,14 @@ import {
   unstable_createMemoryUploadHandler,
   unstable_parseMultipartFormData,
 } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useNavigation } from "@remix-run/react";
 import { userme } from "~/api/auth/userme.server";
 import PageHeader from "~/components/PageHeader";
 import UserProfileForm from "~/components/UserProfileForm";
 import { getUserData } from "~/utils/session.server";
 import { updateProfile } from "~/api/update-user-profile.server";
 import { uploadImage } from "~/api/upload-image.server";
+
 import { deleteImage as deleteOldImage } from "~/api/delete-image.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -59,6 +60,7 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function ProfileRoute() {
+
   const loaderData = useLoaderData<typeof loader>();
 
   return (

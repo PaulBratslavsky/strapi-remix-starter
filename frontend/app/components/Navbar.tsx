@@ -17,8 +17,8 @@ function NavLink({ url, text }: NavLinkData) {
     <li className="flex">
       <Link
         to={url}
-        className={`flex items-center mx-4 -mb-1 border-b-2 dark:border-transparent ${
-          pathname === url && "dark:text-violet-400 dark:border-violet-400"
+        className={`flex items-center mx-4 -mb-1 border-b-2 border-transparent ${
+          pathname === url && "text-violet-400 border-violet-400"
         }}`}
       >
         {text}
@@ -40,7 +40,7 @@ export default function Navbar({
 }) {
 
   return (
-    <div className="p-4 dark:bg-gray-900 dark:text-gray-100">
+    <div className="p-4 bg-gray-900 text-gray-100">
       <div className="container flex justify-between h-16 mx-auto px-0 sm:px-6">
         <Logo src={logoUrl}>
           {logoText && <h2 className="text-2xl font-bold">{logoText}</h2>}
@@ -68,7 +68,7 @@ export default function Navbar({
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            className="w-6 h-6 dark:text-gray-100"
+            className="w-6 h-6 text-gray-100"
           >
             <path
               strokeLinecap="round"

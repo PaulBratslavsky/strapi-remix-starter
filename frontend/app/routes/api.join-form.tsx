@@ -57,7 +57,7 @@ const FormSubmit: FC<{
             />
             <button
               type="submit"
-              className="w-2/5 p-3 font-semibold rounded-r-lg sm:w-1/3 dark:bg-violet-400 dark:text-gray-900"
+              className="w-2/5 p-3 font-semibold rounded-r-lg sm:w-1/3 bg-violet-400 text-gray-900"
             >
               {text}
             </button>
