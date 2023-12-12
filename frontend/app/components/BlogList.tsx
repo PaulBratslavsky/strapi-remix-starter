@@ -47,8 +47,8 @@ export default function BlogList({
   data: articles,
   children,
 }: {
-  data: Article[];
-  children?: React.ReactNode;
+  readonly data: Article[];
+  readonly children?: React.ReactNode;
 }) {
   return (
     <section className="container p-6 mx-auto space-y-6 sm:space-y-12">
@@ -62,7 +62,8 @@ export default function BlogList({
           const authorsBio = article.attributes.authorsBio.data?.attributes;
 
           const avatarUrl = getStrapiMedia(
-            authorsBio?.avatar.data.attributes.url
+            authorsBio?.avatar?.data?.attributes.url ||
+              "https://robohash.org/mail@ashallendesign.co.uk"
           );
 
           return (
