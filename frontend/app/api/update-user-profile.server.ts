@@ -27,6 +27,5 @@ export async function updateProfile(
   });
 
   const dataResponse = await response.json();
-  console.log(dataResponse);
   return dataResponse;
 }
