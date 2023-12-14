@@ -21,20 +21,7 @@ I love Remix and I am new to Typescript. If you find any bugs or improvements fe
 ```bash
   yarn setup
 ```
-
-3. Next, navigate to your `/backend` directory and set up your `.env` file. You can use the `.env.example` file as reference:
-
-```bash
-HOST=localhost
-PORT=1337
-APP_KEYS="toBeModified1,toBeModified2"
-API_TOKEN_SALT=tobemodified
-ADMIN_JWT_SECRET=tobemodified
-JWT_SECRET=tobemodified
-TRANSFER_TOKEN_SALT=tobemodified
-```
-
-4. Start your project by running the following command:
+3. Start your project by running the following command:
 
 ```bash
   yarn build
@@ -69,7 +56,7 @@ This will import your data locally. Log back into your admin panel to see the ne
 
 ## Setting Up The Frontend
 
-Next we need to switch to our `/frontend` directory and create our `.env` file and paste in the following. 
+Next we need to switch to our `/frontend` directory and create our `.env` file and paste in the following if it was not created for you on setup. 
 
 ```bash
   SUBMIT_FORM_STRAPI_KEY=to_be_replaced
