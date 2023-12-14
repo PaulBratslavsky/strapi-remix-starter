@@ -6,7 +6,7 @@ import {
   unstable_createMemoryUploadHandler,
   unstable_parseMultipartFormData,
 } from "@remix-run/node";
-import { useLoaderData, useNavigation } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { userme } from "~/api/auth/userme.server";
 import PageHeader from "~/components/PageHeader";
 import UserProfileForm from "~/components/UserProfileForm";
