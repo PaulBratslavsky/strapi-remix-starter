@@ -24,8 +24,7 @@ I love Remix and I am new to Typescript. If you find any bugs or improvements fe
 3. Start your project by running the following command:
 
 ```bash
-  yarn build
-  yarn develop
+  yarn dev
 ```
 
 You will be prompted to create your first admin user.
